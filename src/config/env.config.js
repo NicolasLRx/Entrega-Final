@@ -1,9 +1,7 @@
 import dotenv from "dotenv";
 
-const enviroment = "PRODUCTION";
-dotenv.config({
-    path: enviroment === "PRODUCTION" ? "./.env.prod" : "./.env.dev"
-});
+
+dotenv.config();
 
 export default {
 
