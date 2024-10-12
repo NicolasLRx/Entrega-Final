@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "title": "Producto 1",
+        "description": "productos",
+        "price": 50,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P1",
+        "stock": 10
+    },
+    {
+        "id": 2,
+        "title": "Producto 2",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P2",
+        "stock": 10
+    },
+    {
+        "id": 3,
+        "title": "Producto 3",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P3",
+        "stock": 10
+    },
+    {
+        "id": 4,
+        "title": "Producto 4",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P4",
+        "stock": 10
+    },
+    {
+        "id": 5,
+        "title": "Producto 5",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P5",
+        "stock": 10
+    },
+    {
+        "id": 6,
+        "title": "Producto 6",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P6",
+        "stock": 10
+    },
+    {
+        "id": 7,
+        "title": "Producto 7",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P7",
+        "stock": 10
+    },
+    {
+        "id": 8,
+        "title": "Producto 8",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P8",
+        "stock": 10
+    },
+    {
+        "id": 9,
+        "title": "Producto 9",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P9",
+        "stock": 10
+    },
+    {
+        "id": 10,
+        "title": "Producto 10",
+        "description": "productos",
+        "price": 25,
+        "thumbnail": "http://www.google.com.ar",
+        "code": "P10",
+        "stock": 10
+    }
+]

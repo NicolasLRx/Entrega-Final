@@ -1,0 +1,91 @@
+2024-09-09 02:07:27 info: Mongo DB conectado
+2024-09-09 02:07:27 info: Server ready on port: 8080
+2024-09-09 02:21:30 info: Mongo DB conectado
+2024-09-09 02:21:30 info: Server ready on port: 8080
+2024-09-09 02:23:27 info: Mongo DB conectado
+2024-09-09 02:23:27 info: Server ready on port: 8080
+2024-09-09 02:23:39 info: Mongo DB conectado
+2024-09-09 02:23:39 info: Server ready on port: 8080
+2024-09-09 02:24:12 info: Mongo DB conectado
+2024-09-09 02:24:12 info: Server ready on port: 8080
+2024-09-09 02:24:26 error: Product id 6690d4815f97eb264c515281 not found
+2024-09-09 02:25:08 error: Cast to ObjectId failed for value "6690d4815f97eb264c51528" (type string) at path "_id" for model "products"
+2024-09-09 02:28:34 info: Mongo DB conectado
+2024-09-09 02:28:34 info: Server ready on port: 8080
+2024-09-09 02:28:38 error: Cast to ObjectId failed for value "6690d4815f97eb264c51528" (type string) at path "_id" for model "products"
+2024-09-09 02:28:38 error: Cast to ObjectId failed for value "6690d4815f97eb264c51528" (type string) at path "_id" for model "products"
+2024-09-09 02:30:00 info: Mongo DB conectado
+2024-09-09 02:30:00 info: Server ready on port: 8080
+2024-09-09 02:31:14 error: Cast to ObjectId failed for value "6690d4815f97eb264c51528" (type string) at path "_id" for model "products"
+2024-09-09 02:31:31 info: Mongo DB conectado
+2024-09-09 02:31:31 info: Server ready on port: 8080
+2024-09-09 23:42:01 info: Mongo DB conectado
+2024-09-09 23:42:01 info: Server ready on port: 8080
+2024-09-09 23:43:14 info: Mongo DB conectado
+2024-09-09 23:43:14 info: Server ready on port: 8081
+2024-09-10 01:40:14 info: Mongo DB conectado
+2024-09-10 01:40:14 info: Server ready on port: 8081
+2024-09-11 00:29:13 info: Mongo DB conectado
+2024-09-11 00:29:13 info: Server ready on port: 8080
+2024-09-23 01:20:24 info: Mongo DB conectado
+2024-09-23 01:20:24 info: Server ready on port: 8080
+2024-09-23 01:24:49 info: Mongo DB conectado
+2024-09-23 01:24:49 info: Server ready on port: 8080
+2024-09-23 01:26:15 info: Mongo DB conectado
+2024-09-23 01:26:15 info: Server ready on port: 8080
+2024-09-23 01:28:22 info: Mongo DB conectado
+2024-09-23 01:28:22 info: Server ready on port: 8080
+2024-09-23 01:28:39 info: Mongo DB conectado
+2024-09-23 01:28:39 info: Server ready on port: 8080
+2024-09-23 01:29:44 info: Mongo DB conectado
+2024-09-23 01:29:44 info: Server ready on port: 8080
+2024-10-09 00:38:33 info: Mongo DB conectado
+2024-10-09 00:38:33 info: Server ready on port: 8080
+2024-10-09 00:50:26 info: Mongo DB conectado
+2024-10-09 00:50:26 info: Server ready on port: 8080
+2024-10-09 01:02:23 info: Mongo DB conectado
+2024-10-09 01:02:23 info: Server ready on port: 8080
+2024-10-09 01:07:14 info: Mongo DB conectado
+2024-10-09 01:07:14 info: Server ready on port: 8080
+2024-10-10 00:55:54 info: Mongo DB conectado
+2024-10-10 00:55:54 info: Server ready on port: 8080
+2024-10-10 00:57:51 info: Mongo DB conectado
+2024-10-10 00:57:51 info: Server ready on port: 8080
+2024-10-10 00:58:42 error: Cast to ObjectId failed for value "asdasdasd" (type string) at path "_id" for model "products"
+2024-10-10 01:13:10 info: Mongo DB conectado
+2024-10-10 01:13:10 info: Server ready on port: 8080
+2024-10-10 01:17:08 info: Mongo DB conectado
+2024-10-10 01:17:08 info: Server ready on port: 8080
+2024-10-10 01:19:43 info: Mongo DB conectado
+2024-10-10 01:19:43 info: Server ready on port: 8080
+2024-10-10 01:20:01 info: Mongo DB conectado
+2024-10-10 01:20:01 info: Server ready on port: 8080
+2024-10-10 01:30:24 info: Mongo DB conectado
+2024-10-10 01:30:24 info: Server ready on port: 8080
+2024-10-10 01:34:56 info: Mongo DB conectado
+2024-10-10 01:34:56 info: Server ready on port: 8080
+2024-10-11 08:55:10 info: Mongo DB conectado
+2024-10-11 08:55:10 info: Server ready on port: 8080
+2024-10-11 08:55:22 info: Mongo DB conectado
+2024-10-11 08:55:22 info: Server ready on port: 8080
+2024-10-11 09:24:11 info: Mongo DB conectado
+2024-10-11 09:24:11 info: Server ready on port: 8080
+2024-10-11 09:25:29 error: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+2024-10-11 09:29:05 error: user.push is not a function
+2024-10-11 09:29:19 error: user.push is not a function
+2024-10-11 09:30:56 error: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+2024-10-11 09:31:40 info: Mongo DB conectado
+2024-10-11 09:31:40 info: Server ready on port: 8080
+2024-10-11 09:31:47 error: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+2024-10-11 09:33:03 error: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+2024-10-11 09:35:11 info: Mongo DB conectado
+2024-10-11 09:35:11 info: Server ready on port: 8080
+2024-10-11 09:40:02 info: Mongo DB conectado
+2024-10-11 09:40:02 info: Server ready on port: 8080
+2024-10-11 09:40:17 error: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+2024-10-11 09:41:46 info: Mongo DB conectado
+2024-10-11 09:41:46 info: Server ready on port: 8080
+2024-10-11 09:41:52 error: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+2024-10-11 09:42:34 info: Mongo DB conectado
+2024-10-11 09:42:34 info: Server ready on port: 8080
+2024-10-11 09:42:39 error: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
