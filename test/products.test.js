@@ -1,11 +1,13 @@
 import { expect } from "chai";
-import supertest, { agent } from "supertest";
+import supertest from "supertest";
 import envConfig from "../src/config/env.config.js";
 
 const requester = supertest(`http://localhost:${envConfig.PORT}`);
 
 describe("Test products", () => {
     let cookie;
+    let productId;
+
     before(async () => {
         const loginUser = {
             email: "usuario3@test.com",
@@ -13,18 +15,14 @@ describe("Test products", () => {
         };
 
         const { headers } = await requester.post("/api/session/login").send(loginUser);
-
         const cookieResult = headers["set-cookie"][0];
 
         cookie = {
             name: cookieResult.split("=")[0],
             value: cookieResult.split("=")[1],
         };
-      
     });
 
-    let productId;
-        
     it("[POST] /api/products este endpoint debe crear un producto", async () => {
         const newProduct = {
             title: "Producto Test",
@@ -35,31 +33,33 @@ describe("Test products", () => {
             stock: 50,
             category: "otros",
         };
-        console.log(cookie)
-        const { status, _body, ok } = await requester
+
+        const { status, body, ok } = await requester
             .post("/api/products")
             .send(newProduct)
             .set("Cookie", [`${cookie.name}=${cookie.value}`]);
-        productId = _body.payload._id;
+
+        productId = body.payload._id;
 
         expect(status).to.be.equal(201);
         expect(ok).to.be.equal(true);
-        expect(_body.payload.title).to.be.equal("Producto Test");
+        expect(body.payload.title).to.be.equal("Producto Test");
     });
 
     it("[GET] /api/products/:pid este endpoint debe devolver un producto", async () => {
-        const { status, _body, ok } = await requester.get(`/api/products/${productId}`);
+        const { status, body, ok } = await requester.get(`/api/products/${productId}`);
 
         expect(status).to.be.equal(200);
         expect(ok).to.be.equal(true);
-        expect(_body.payload.title).to.be.equal("Producto Test");
+        expect(body.payload.title).to.be.equal("Producto Test");
     });
 
     it("[GET] /api/products/ este endpoint debe devolver todos los productos", async () => {
-        const { status, _body, ok } = await requester.get(`/api/products`);
+        const { status, body, ok } = await requester.get(`/api/products`);
+
         expect(status).to.be.equal(200);
         expect(ok).to.be.equal(true);
-        expect(_body.products.docs).to.be.an("array");
+        expect(body.products.docs).to.be.an("array");
     });
 
     it("[PUT] /api/products/:pid este endpoint debe actualizar un producto", async () => {
@@ -68,22 +68,27 @@ describe("Test products", () => {
             description: "product test update",
         };
 
-        const { status, _body, ok } = await requester
+        const { status, body, ok } = await requester
             .put(`/api/products/${productId}`)
             .send(updateData)
             .set("Cookie", [`${cookie.name}=${cookie.value}`]);
 
         expect(status).to.be.equal(200);
         expect(ok).to.be.equal(true);
-        expect(_body.payload.title).to.be.equal("test update");
-        expect(_body.payload.description).to.be.equal("product test update");
+        expect(body.payload.title).to.be.equal("test update");
+        expect(body.payload.description).to.be.equal("product test update");
     });
 
     it("[DELETE] /api/products/:pid este endpoint debe eliminar un producto", async () => {
-        const { status, _body, ok } = await requester
+        const { status, body, ok } = await requester
             .delete(`/api/products/${productId}`)
             .set("Cookie", [`${cookie.name}=${cookie.value}`]);
+
         expect(status).to.be.equal(200);
         expect(ok).to.be.equal(true);
+        
+        // Verificar que el producto haya sido eliminado
+        const { status: getStatus, body: getBody } = await requester.get(`/api/products/${productId}`);
+        expect(getStatus).to.be.equal(404); // Se espera que el producto ya no exista
     });
 });

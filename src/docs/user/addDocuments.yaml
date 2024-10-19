@@ -1,0 +1,77 @@
+paths:
+  /user/{uid}/documents:
+    get:
+      tags:
+        - User
+      summary: Agregar documentos a un usuario
+      description: Permite agregar documentos a un usuario específico utilizando su ID.
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario al que se le desean agregar los documentos
+          schema:
+            type: string
+            example: "usuario123"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Documentos que se desean agregar al usuario
+      responses:
+        "200":
+          description: Documentos agregados exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  response:
+                    type: object
+                    description: Información de la operación de agregar documentos
+                    properties:
+                      uid:
+                        type: string
+                        example: "usuario123"
+                      documents:
+                        type: array
+                        items:
+                          type: string
+                          example: "documento.pdf"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "Usuario no encontrado"
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "Error interno del servidor."

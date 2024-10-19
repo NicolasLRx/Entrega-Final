@@ -1,28 +1,21 @@
 paths:
-  /api/carts/{cid}/product/{pid}:
-    delete:
+  /user/premium/{uid}:
+    get:
       tags:
-        - Cart
-      summary: Eliminar un producto del carrito
-      description: Elimina un producto específico de un carrito utilizando el ID del carrito y el ID del producto.
+        - User
+      summary: Cambiar el rol de un usuario
+      description: Permite cambiar el rol de un usuario específico utilizando su ID.
       parameters:
-        - name: cid
+        - name: uid
           in: path
-          description: ID del carrito del cual se eliminará el producto
           required: true
+          description: ID del usuario cuyo rol se desea cambiar
           schema:
             type: string
-            example: "cart123"
-        - name: pid
-          in: path
-          description: ID del producto a eliminar
-          required: true
-          schema:
-            type: string
-            example: "prod456"
+            example: "usuario123"
       responses:
         "200":
-          description: El producto se eliminó del carrito exitosamente
+          description: Rol del usuario cambiado exitosamente
           content:
             application/json:
               schema:
@@ -30,12 +23,19 @@ paths:
                 properties:
                   status:
                     type: string
-                    example: success
-                  message:
-                    type: string
-                    example: "Producto eliminado del carrito"
+                    example: ok
+                  response:
+                    type: object
+                    description: Información del usuario después de cambiar el rol
+                    properties:
+                      uid:
+                        type: string
+                        example: "usuario123"
+                      role:
+                        type: string
+                        example: "premium"
         "404":
-          description: Carrito o producto no encontrado
+          description: Usuario no encontrado
           content:
             application/json:
               schema:
@@ -46,7 +46,7 @@ paths:
                     example: error
                   message:
                     type: string
-                    example: "Carrito o producto no encontrado"
+                    example: "Usuario no encontrado"
         "500":
           description: Error interno del servidor
           content:
@@ -59,4 +59,4 @@ paths:
                     example: error
                   message:
                     type: string
-                    example: "Error interno del servidor"
+                    example: "Error interno del servidor."

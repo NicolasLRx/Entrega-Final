@@ -3,22 +3,72 @@ paths:
     put:
       tags:
         - Cart
-      summary: Agregar un producto al carrito
+      summary: Actualizar la cantidad de un producto en el carrito
+      description: Actualiza la cantidad de un producto específico en el carrito utilizando el ID del carrito y el ID del producto.
       parameters:
         - name: cid
           in: path
-          description: Id del carrito
+          description: ID del carrito donde se encuentra el producto
           required: true
           schema:
             type: string
+            example: "cart123"
         - name: pid
           in: path
-          description: Id del producto
+          description: ID del producto a actualizar
           required: true
           schema:
             type: string
+            example: "prod456"
+      requestBody:
+        description: Cuerpo de la solicitud para actualizar la cantidad del producto.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: Nueva cantidad del producto
+                  example: 3
       responses:
         "200":
-          description: El producto se agrego al carrito
+          description: La cantidad del producto se actualizó exitosamente en el carrito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: "Cantidad del producto actualizada"
+        "404":
+          description: Carrito o producto no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "Carrito o producto no encontrado"
         "500":
-          description: Internal Server Error
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "Error interno del servidor"

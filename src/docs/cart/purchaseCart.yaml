@@ -3,16 +3,74 @@ paths:
     get:
       tags:
         - Cart
-      summary: Agregar un producto al carrito
+      summary: Procesar la compra del carrito
+      description: Procesa la compra del carrito identificado por el ID proporcionado y devuelve un resumen de la transacción.
       parameters:
         - name: cid
           in: path
-          description: Id del carrito
+          description: ID del carrito que se desea comprar
           required: true
           schema:
             type: string
+            example: "cart123"
       responses:
         "200":
-          description: El producto se agrego al carrito
+          description: Compra procesada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: "Compra realizada correctamente"
+                  orderDetails:
+                    type: object
+                    properties:
+                      orderId:
+                        type: string
+                        example: "order789"
+                      totalAmount:
+                        type: number
+                        format: float
+                        example: 150.75
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            productId:
+                              type: string
+                              example: "prod456"
+                            quantity:
+                              type: integer
+                              example: 2
+        "404":
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "Carrito no encontrado"
         "500":
-          description: Internal Server Error
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "Error interno del servidor"

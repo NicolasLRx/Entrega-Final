@@ -4,21 +4,80 @@ paths:
       tags:
         - Cart
       summary: Agregar un producto al carrito
+      description: Agrega un producto al carrito específico utilizando los IDs del carrito y del producto.
       parameters:
         - name: cid
           in: path
-          description: Id del carrito
+          description: ID del carrito
           required: true
           schema:
             type: string
+            example: "cart123"
         - name: pid
           in: path
-          description: Id del producto
+          description: ID del producto a agregar
           required: true
           schema:
             type: string
+            example: "prod456"
+      requestBody:
+        description: Información opcional del producto (como cantidad) que puede enviarse en el cuerpo de la solicitud.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: Cantidad del producto a agregar
+                  example: 1
       responses:
         "200":
-          description: El producto se agrego al carrito
+          description: El producto se agregó al carrito correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: object
+                    properties:
+                      cartId:
+                        type: string
+                        example: "cart123"
+                      productId:
+                        type: string
+                        example: "prod456"
+                      quantity:
+                        type: integer
+                        example: 1
+        "400":
+          description: Error en la solicitud (p. ej., ID de producto o carrito inválido)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "ID de carrito o producto inválido"
         "500":
-          description: Internal Server Error
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "Error interno del servidor"

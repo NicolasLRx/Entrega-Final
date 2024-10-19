@@ -1,21 +1,13 @@
 paths:
-  /api/carts/{cid}:
-    delete:
+  /session/current:
+    get:
+      summary: Obtener información del usuario autenticado
+      description: Devuelve la información del usuario que está actualmente autenticado.
       tags:
-        - Cart
-      summary: Eliminar un carrito
-      description: Elimina un carrito existente utilizando su ID.
-      parameters:
-        - name: cid
-          in: path
-          description: ID del carrito a eliminar
-          required: true
-          schema:
-            type: string
-            example: "cart123"
+        - Session
       responses:
-        "200":
-          description: Carrito eliminado exitosamente
+        '200':
+          description: Información del usuario autenticado
           content:
             application/json:
               schema:
@@ -24,11 +16,23 @@ paths:
                   status:
                     type: string
                     example: success
-                  message:
-                    type: string
-                    example: "Carrito eliminado correctamente"
-        "404":
-          description: Carrito no encontrado
+                  payload:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "Nicolrx"
+                      username:
+                        type: string
+                        example: "john_doe"
+                      email:
+                        type: string
+                        example: "nico@leroux.com"
+                      role:
+                        type: string
+                        example: "admin"
+        '401':
+          description: No autenticado
           content:
             application/json:
               schema:
@@ -39,8 +43,8 @@ paths:
                     example: error
                   message:
                     type: string
-                    example: "Carrito no encontrado"
-        "500":
+                    example: "Usuario no autenticado"
+        '500':
           description: Error interno del servidor
           content:
             application/json:

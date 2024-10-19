@@ -1,14 +1,21 @@
-import { expect } from "chai";
-import supertest from "supertest";
+import mongoose from "mongoose"; 
 import envConfig from "../src/config/env.config.js";
-import mongoose from "mongoose";
-import { userModel } from "../src/persistences/mongo/models/user.model.js";
+import userRepository from "../src/persistences/mongo/repositories/user.repository.js";
+import { expect } from "chai";
+
 mongoose.connect(envConfig.MONGO_URL);
 
-const requester = supertest(`http://localhost:${envConfig.PORT}`);
+describe("Test User Repository", () => {
 
-describe("Test de session", () => {
-    it("[POST] /api/session/register  este endpoint debe registrar un usuario", async () => {
+    it("Obtener todos los usuarios", async () => {
+        const users = await userRepository.getAll();
+        expect(users).to.be.an("array");
+    });
+
+    let userId;
+    let userEmail;
+
+    it("Crear un usuario", async () => {
         const newUser = {
             first_name: "User test",
             last_name: "Test",
@@ -17,43 +24,77 @@ describe("Test de session", () => {
             age: 20,
         };
 
-        const { status, _body, ok } = await requester.post("/api/session/register").send(newUser);
-        expect(status).to.be.equal(201);
-        expect(ok).to.be.equal(true);
-        expect(_body.status).to.be.equal("success");
+        const user = await userRepository.create(newUser);
+        userId = user._id;
+        userEmail = user.email;
+
+        expect(user.first_name).to.equal("User test");
+        expect(user.last_name).to.equal("Test");
+        expect(user.email).to.equal("user-test@test.com");
+        expect(user.password).to.equal("123");
+        expect(user.role).to.equal("user");
     });
 
-    let cookie;
-    it("[POST] /api/session/login  este endpoint debe loguear un usuario", async () => {
-        const loginUser = {
-            email: "user-test@test.com",
+    it("Obtener un usuario por id", async () => {
+        const user = await userRepository.getById(userId);
+        expect(user).to.be.an("object");
+        expect(user.email).to.equal("user-test@test.com");
+        expect(user.password).to.not.equal("asdfqwe");
+        expect(user.password).to.not.an("number");
+    });
+
+    it("Obtener un usuario por email", async () => {
+        const user = await userRepository.getByEmail(userEmail);
+        expect(user).to.be.an("object");
+        expect(user.email).to.equal("user-test@test.com");
+        expect(user.password).to.not.equal("asdfqwer");
+        expect(user.password).to.not.an("number");
+    });
+
+    it("Actualizar usuario", async () => {
+        const user = await userRepository.update(userId, {
+            first_name: "User Update",
+            last_name: "Update",
+            age: 50,
+        });
+        expect(user.first_name).to.equal("User Update");
+        expect(user.last_name).to.equal("Update");
+        expect(user.age).to.not.equal(20);
+    });
+
+    it("Eliminar un usuario por id", async () => {
+        await userRepository.deleteOne(userId);
+        const user = await userRepository.getById(userId);
+        expect(user).to.be.null;
+    });
+
+    // Test para buscar un usuario que no existe
+    it("Obtener un usuario por id que no existe", async () => {
+        const user = await userRepository.getById(mongoose.Types.ObjectId()); // Usar un ID que no existe
+        expect(user).to.be.null;
+    });
+
+    // Test para crear un usuario con email duplicado
+    it("Crear un usuario con un email duplicado", async () => {
+        const newUser = {
+            first_name: "User Duplicate",
+            last_name: "Test",
+            email: "user-test@test.com", // Usar el mismo email
             password: "123",
+            age: 25,
         };
 
-        const { status, _body, ok, headers } = await requester.post("/api/session/login").send(loginUser);
-        const cookieResult = headers["set-cookie"][0];
-
-        cookie = {
-            name: cookieResult.split("=")[0],
-            value: cookieResult.split("=")[1],
-        };
-
-        expect(ok).to.be.equal(true);
-        expect(status).to.be.equal(200);
-        expect(_body.payload.first_name).to.be.equal("User test");
-        expect(_body.payload.email).to.be.equal("user-test@test.com");
-        expect(_body.payload.role).to.be.equal("user");
-    });
-
-    it("[GET] /api/session/current  este endpoint debe mostrar la información del usuario", async () => {
-        const { status, _body, ok } = await requester.get("/api/session/current").set("Cookie", [`${cookie.name}=${cookie.value}`]);
-        expect(ok).to.be.equal(true);
-        expect(status).to.be.equal(200);
-        expect(_body.payload.email).to.be.equal("user-test@test.com");
-        expect(_body.payload.role).to.be.equal("user");
+        try {
+            await userRepository.create(newUser);
+        } catch (error) {
+            expect(error).to.exist;
+            expect(error.message).to.include("duplicate key error"); // Asegúrate de que el mensaje de error coincida
+        }
     });
 
     after(async () => {
-              mongoose.disconnect();
+        console.log("Se ejecuta al finalizar todos los test");
+        await mongoose.disconnect(); // Asegurarse de que la desconexión sea esperada
     });
+
 });

@@ -3,17 +3,19 @@ import envConfig from "../src/config/env.config.js";
 import userRepository from "../src/persistences/mongo/repositories/user.repository.js";
 import { expect } from "chai";
 
-mongoose.connect(envConfig.MONGO_URL);
+// Conectar a la base de datos antes de ejecutar las pruebas
+before(async () => {
+    await mongoose.connect(envConfig.MONGO_URL);
+});
 
 describe("Test User Repository", () => {
+    let userId;
+    let userEmail;
 
     it("Obtener todos los usuarios", async () => {
         const users = await userRepository.getAll();
         expect(users).to.be.an("array");
     });
-
-    let userId;
-    let userEmail;
 
     it("Crear un usuario", async () => {
         const newUser = {
@@ -35,12 +37,34 @@ describe("Test User Repository", () => {
         expect(user.role).to.equal("user");
     });
 
+    it("Intentar crear un usuario con un correo electrónico existente", async () => {
+        const newUser = {
+            first_name: "Another User",
+            last_name: "Test",
+            email: "user-test@test.com", // Correo ya existente
+            password: "456",
+            age: 25,
+        };
+
+        try {
+            await userRepository.create(newUser);
+        } catch (error) {
+            expect(error).to.exist;
+            expect(error.message).to.include("duplicate key error");
+        }
+    });
+
     it("Obtener un usuario por id", async () => {
         const user = await userRepository.getById(userId);
         expect(user).to.be.an("object");
         expect(user.email).to.equal("user-test@test.com");
         expect(user.password).to.not.equal("asdfqwe");
         expect(user.password).to.not.an("number");
+    });
+
+    it("Intentar obtener un usuario con un id que no existe", async () => {
+        const user = await userRepository.getById("nonExistingId");
+        expect(user).to.be.null;
     });
 
     it("Obtener un usuario por email", async () => {
@@ -70,8 +94,6 @@ describe("Test User Repository", () => {
 
     after(async () => {
         console.log("Se ejecuta al finalizar todos los test");
-        mongoose.disconnect();
+        await mongoose.disconnect();
     });
-
-
 });

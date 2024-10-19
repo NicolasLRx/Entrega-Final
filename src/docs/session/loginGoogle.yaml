@@ -1,0 +1,46 @@
+paths:
+  /session/google:
+    get:
+      summary: Autenticación de un usuario con Google
+      description: Autentica a un usuario mediante Google y devuelve la información del usuario autenticado.
+      tags:
+        - Session
+      responses:
+        '200':
+          description: Autenticación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "user123"
+                      username:
+                        type: string
+                        example: "nico-leroux"
+                      email:
+                        type: string
+                        example: "nico@leroux.com"
+                      googleId:
+                        type: string
+                        example: "112233445566"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: "Error interno del servidor"
